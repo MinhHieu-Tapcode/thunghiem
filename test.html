@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Event Demo</title>
+</head>
+<body> 
+    <h2>Event Handler Demo</h2>
+    <p>Click bất cứ đâu trên trang để xem event chạy.</p>
+
+    <script>
+        // 1. Thay htmlClick() bằng addEventListener
+        function htmlClick() {
+            console.log("1) HTML attribute onclick -> htmlClick() chạy");
+        }
+        document.body.addEventListener("click", htmlClick);
+
+        // 2. Event bằng cách gán trực tiếp (overwrite test)
+        window.onclick = function () {
+            console.log("2) window.onclick gán lần 2 -> chỉ chạy cái này thôi");
+        };
+
+        // 3. Cách chuẩn: addEventListener
+        window.addEventListener("click", function () {
+            console.log("3) addEventListener -> handler 1");
+        });
+
+        window.addEventListener("click", function () {
+            console.log("3) addEventListener -> handler 2");
+        });
+    </script>
+</body>
+</html>

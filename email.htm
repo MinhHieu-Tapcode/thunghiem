@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Gửi Email Test - EmailJS</title>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 420px;
+      margin: 60px auto;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      background: #f9f9f9;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    input, textarea {
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    button {
+      width: 100%;
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #status {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📧 Test Gửi Email</h2>
+
+<form id="emailForm">
+  <input type="text" name="from_name" placeholder="Tên người gửi" required>
+  <input type="email" name="to_email" placeholder="Email người nhận" required>
+  <textarea name="message" placeholder="Nội dung" rows="4" required></textarea>
+  <button type="submit">Gửi Email</button>
+</form>
+
+  <div id="status"></div>
+
+  <script>
+    // 🟢 DÁN THÔNG TIN TỪ EMAILJS VÀO ĐÂY
+    const SERVICE_ID = "service_agcqc5a";
+    const TEMPLATE_ID = "template_hrgoacw";
+    const PUBLIC_KEY = "jyEtAUcgjqpxB9Mar";
+
+    // 🟢 KHỞI TẠO EMAILJS
+    emailjs.init(PUBLIC_KEY);
+
+    const form = document.getElementById("emailForm");
+    const status = document.getElementById("status");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      status.textContent = "⏳ Đang gửi...";
+      status.style.color = "gray";
+
+      emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, this)
+        .then(() => {
+          status.textContent = "✅ Gửi thành công! Hãy kiểm tra hộp thư của bạn.";
+          status.style.color = "green";
+          form.reset();
+        })
+        .catch((err) => {
+          status.textContent = "❌ Lỗi gửi email: " + err.text;
+          status.style.color = "red";
+        });
+    });
+  </script>
+
+</body>
+</html>
